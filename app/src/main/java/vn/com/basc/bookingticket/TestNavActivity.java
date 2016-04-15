@@ -3,6 +3,7 @@ package vn.com.basc.bookingticket;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,16 +31,21 @@ import vn.com.basc.bookingticket.network.WSAsyncTask;
 
 public class TestNavActivity extends CommonActivity{
 
+    private int mSpeed = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_test_nav);
         setCommonUI();
 
 
 
         TextView lb_center_top_bar = (TextView) findViewById(R.id.lb_center_top_bar);
-        lb_center_top_bar.setText("BookingTicket.vn");
+        //lb_center_top_bar.setText("BookingTicket.vn");
+        lb_center_top_bar.setText(getString(R.string.start_page_header));
 
         RelativeLayout container_bottom_bar = (RelativeLayout) findViewById(R.id.include_bottom);
         container_bottom_bar.setBackgroundColor(Color.parseColor("#FFFF0000"));
@@ -55,7 +61,13 @@ public class TestNavActivity extends CommonActivity{
     }
 
 
+    //===========================================================================
+    public void onClickBtSearchTicket(View c){
 
+        Intent myIntent = new Intent(TestNavActivity.this, TicketListActivity.class);
+        TestNavActivity.this.startActivity(myIntent);
+
+    }
     //===========================================================================
     public void onClickBtContact(View c){
 
@@ -81,6 +93,7 @@ public class TestNavActivity extends CommonActivity{
         String value = intent.getStringExtra("key"); //if it's a string you stored.
         */
     }
+
 
     //===========================================================================
     public void onClickBtSignIn(View c){
