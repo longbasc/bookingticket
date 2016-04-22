@@ -66,6 +66,7 @@ public class TestNavActivity extends CommonActivity{
 
         Intent myIntent = new Intent(TestNavActivity.this, TicketListActivity.class);
         TestNavActivity.this.startActivity(myIntent);
+        TestNavActivity.this.overridePendingTransition(R.anim.animation_left_in, R.anim.animation_left_out);
 
     }
     //===========================================================================
