@@ -1,6 +1,9 @@
 package vn.com.basc.bookingticket;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,12 +20,16 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import vn.com.basc.bookingticket.common.CommonActivity;
 import vn.com.basc.bookingticket.common.Globals;
@@ -72,6 +79,20 @@ public class TestNavActivity extends CommonActivity{
     //===========================================================================
     public void onClickBtContact(View c){
 
+
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        DatePickerDialog datePicker = new DatePickerDialog(this,
+                R.style.AppTheme_NoActionBar,
+                datePickerListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH));
+
+        datePicker.setCancelable(false);
+        datePicker.setTitle("Select the date");
+        datePicker.show();
+
+        /*
         AlertDialog alertDialog = new AlertDialog.Builder(TestNavActivity.this).create();
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("Go to contact page");
@@ -82,6 +103,8 @@ public class TestNavActivity extends CommonActivity{
                     }
                 });
         alertDialog.show();
+        */
+
 
         /*
         Intent myIntent = new Intent(CurrentActivity.this, NextActivity.class);
@@ -95,6 +118,30 @@ public class TestNavActivity extends CommonActivity{
         */
     }
 
+
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+        // when dialog box is closed, below method will be called.
+        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+
+            String year1 = String.valueOf(selectedYear);
+            String month1 = String.valueOf(selectedMonth + 1);
+            String day1 = String.valueOf(selectedDay);
+
+            AlertDialog alertDialog = new AlertDialog.Builder(TestNavActivity.this).create();
+            alertDialog.setTitle("Alert");
+            alertDialog.setMessage(day1 + "/" + month1 + "/" + year1);
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+
+
+        }
+    };
 
     //===========================================================================
     public void onClickBtSignIn(View c){
@@ -179,5 +226,8 @@ public class TestNavActivity extends CommonActivity{
         Toast.makeText(this,"Please check network",Toast.LENGTH_LONG);
     }
     */
+
+
+
 
 }
